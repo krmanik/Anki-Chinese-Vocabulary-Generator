@@ -29,6 +29,9 @@ pip install -r requirements.txt
 
 3. Run ```main.py``` and start adding words
 
+# Note
+Languages & voices for [DeepHorizons/tts](https://github.com/DeepHorizons/tts) may be needed to install.
+
 # Data
 The dictionary data of CC-CEDICT converted to individual .json file using [cedict-json](https://github.com/infinyte7/cedict-json).
 
@@ -44,6 +47,9 @@ Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/A
 ![Demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/import_demo.gif)
 
 [CC-CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
+
+# Contribute
+Code optimization will be appreciated.
 
 # License
 Read [License.md](/License.md)
