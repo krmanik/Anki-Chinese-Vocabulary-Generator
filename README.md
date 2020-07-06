@@ -1,6 +1,9 @@
 # Anki-Chinese-Vocabulary-Generator
 Enter only simplified characters and create word meaning with Traditional, Pinyin, Meaning and Audio
 
+## Demo
+![demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/demo.gif)
+
 ## Features
 - Traditional, Pinyin, Meaning and Audio generated automatically
 - Offline fetch meaning from ```data``` folder. (cedict)
@@ -28,6 +31,17 @@ pip install -r requirements.txt
 
 # Data
 The dictionary data of CC-CEDICT converted to individual .json file using [cedict-json](https://github.com/infinyte7/cedict-json).
+
+# Import in Anki 
+Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/Anki-xiehanzi)
+1. Copy ```xiehanzi``` to ```collection.media``` folder in Anki
+2. Create a new deck
+3. Import generated ```xiehanzi.txt``` file
+4. Select ```Fields separated by: Tabs```
+5. Map the fields to respective fields 
+6. Then import
+
+![Demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/import_demo.gif)
 
 [CC-CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
 
