@@ -15,6 +15,11 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 ## Quick start
  1. Install Python [https://www.python.org](https://www.python.org/)
  2. Install required library in ```requirements.txt```
+ To install
+```
+pip install -r requirements.txt
+```
+```requirements.txt``` file contains following
 ```
 gTTS
 pinyin
@@ -22,18 +27,17 @@ hanziconv
 googletrans
 git+https://github.com/DeepHorizons/tts
 ```
-To install
-```
-pip install -r requirements.txt
-```
 
 3. Run ```main.py``` and start adding words
 
 # Note
 Languages & voices for [DeepHorizons/tts](https://github.com/DeepHorizons/tts) may be needed to install.
 
+
 # Data
 The dictionary data of CC-CEDICT converted to individual .json file using [cedict-json](https://github.com/infinyte7/cedict-json).
+
+<br>[CC-CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
 
 # Import in Anki 
 Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/Anki-xiehanzi)
@@ -45,8 +49,6 @@ Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/A
 6. Then import
 
 ![Demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/import_demo.gif)
-
-[CC-CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
 
 # Contribute
 Code optimization will be appreciated.
