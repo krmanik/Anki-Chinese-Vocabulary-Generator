@@ -1,0 +1,5 @@
+gTTS
+pinyin
+hanziconv
+googletrans
+git+https://github.com/DeepHorizons/tts
