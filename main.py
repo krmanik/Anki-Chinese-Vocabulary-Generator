@@ -8,6 +8,7 @@ import tkinter.ttk as ttk
 from gtts import gTTS
 from hanziconv import HanziConv
 from googletrans import Translator
+from cedict.pinyin import pinyinize
 
 class VocabGenerator(Tkinter.Frame):
 
@@ -62,9 +63,9 @@ class VocabGenerator(Tkinter.Frame):
     def insert_data(self):
         ch_sim = self.ch_sim_entry.get()
         self.ch_sim_entry.delete(0, 'end')
-
+        ch_pin=""
         ch_trad = HanziConv.toTraditional(ch_sim)
-        ch_pin = pinyin.get(ch_sim)
+        
         ch_audio = "[sound:xiehanzi/cmn-" + ch_sim + ".mp3]"
         ch_mean = ""
         
@@ -74,7 +75,10 @@ class VocabGenerator(Tkinter.Frame):
             j = "data/" + ch_sim + ".json"
             f = open(j, encoding="utf-8")
             d = json.load(f)
-
+            
+            # when pinyin present in json file, fetch from there as pinyin library provide incorrect pinyin
+            ch_pin = pinyinize(d["pinyin"])
+            
             i=0
             for i in range(len(d['definitions'])):
                 ch_mean += str(d["definitions"][i]) + ", "
@@ -87,6 +91,8 @@ class VocabGenerator(Tkinter.Frame):
             print("Not found")
 
         if not found:
+            ch_pin = pinyin.get(ch_sim)
+            
             translator = Translator()
             t = translator.translate(ch_sim, src='zh-cn', dest="en")
             ch_mean = t.text

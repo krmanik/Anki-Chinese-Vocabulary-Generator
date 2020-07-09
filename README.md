@@ -25,6 +25,7 @@ gTTS
 pinyin
 hanziconv
 googletrans
+pycedict
 git+https://github.com/DeepHorizons/tts
 ```
 
