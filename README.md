@@ -1,5 +1,5 @@
 # Anki-Chinese-Vocabulary-Generator
-Enter only simplified characters and create word meaning with Traditional, Pinyin, Meaning and Audio
+Enter only simplified characters and create word meaning with Traditional, Pinyin, Meaning, Audio and example sentences offline.
 
 ## Demo
 ![demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/demo.gif)
@@ -7,6 +7,7 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 ## Features
 - Traditional, Pinyin, Meaning and Audio generated automatically
 - Offline fetch meaning from ```data``` folder. (cedict)
+- Fetch sentences from ```data.db``` offline 
 - Fetch meaning using Google translate when not found in cedict
 - Save audio file in using [gTTS](https://gtts.readthedocs.io/) or [DeepHorizons/tts](https://github.com/DeepHorizons/tts)
 - Save list to text file, can be imported to Anki
@@ -14,6 +15,7 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 
 ## Quick start
  1. Install Python [https://www.python.org](https://www.python.org/)
+ 2. Download this repository 
  2. Install required library in ```requirements.txt```
  To install
 ```
@@ -21,13 +23,17 @@ pip install -r requirements.txt
 ```
 ```requirements.txt``` file contains following
 ```
+jieba
 gTTS
 pinyin
+pycedict
 hanziconv
 googletrans
-pycedict
 git+https://github.com/DeepHorizons/tts
 ```
+
+**Note: Install ```git``` also.**
+https://git-scm.com/
 
 3. Run ```main.py``` and start adding words
 
@@ -36,9 +42,15 @@ Languages & voices for [DeepHorizons/tts](https://github.com/DeepHorizons/tts) m
 
 
 # Data
-The dictionary data of CC-CEDICT converted to individual .json file using [cedict-json](https://github.com/infinyte7/cedict-json).
-
+### Dictionary
+The ```json_data``` folder contains dictionary data of CC-CEDICT converted to individual ```.json``` file using [cedict-json](https://github.com/infinyte7/cedict-json).
 <br>[CC-CEDICT](https://www.mdbg.net/chinese/dictionary?page=cedict)
+
+### Sentences
+The ```data.db``` contains sentences downloaded from https://tatoeba.org/eng/downloads. For accessing sentences matching the words offline.
+
+### Audio
+The ```audio_data``` folder contains audio taken from https://github.com/hugolpz/audio-cmn. <br>Those audio taken from http://shtooka.net/download.php
 
 # Import in Anki 
 Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/Anki-xiehanzi)
@@ -53,6 +65,9 @@ Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/A
 
 # Contribute
 Code optimization will be appreciated.
+
+# Todo 
+- Stop freezing when translating the sentences
 
 # License
 Read [License.md](/License.md)

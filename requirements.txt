@@ -1,6 +1,7 @@
+jieba
 gTTS
 pinyin
+pycedict
 hanziconv
 googletrans
-pycedict
 git+https://github.com/DeepHorizons/tts
