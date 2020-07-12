@@ -29,6 +29,8 @@ class VocabGenerator(Tkinter.Frame):
 
         self.output_file = ""
         self.ch_sent = ""
+        self.ch_sent_pinyin = ""
+        self.ch_sent_translate = ""
         
         self.parent.title("Chinese Vocabulary Generator")
         self.parent.grid_rowconfigure(0, weight=1)
@@ -75,9 +77,7 @@ class VocabGenerator(Tkinter.Frame):
         self.cur = self.con.cursor()
 
         self.parent.withdraw()
-
         self.new_data()
-
 
     def new_data(self):
         self.new_window = Tkinter.Toplevel(self.parent)
@@ -102,11 +102,11 @@ class VocabGenerator(Tkinter.Frame):
     def draw_table(self):
         self.new_window.destroy()
         self.parent.deiconify()
-        
+
         self.tabel_column1 = ('Traditional', 'Pinyin', 'Meaning')
         self.tabel_column2 = ('Traditional', 'Pinyin', 'Meaning', 'Audio')
-        self.tabel_column3 = ('Traditional', 'Pinyin', 'Meaning', 'Sentence')
-        self.tabel_column4 = ('Traditional', 'Pinyin', 'Meaning', 'Audio', 'Sentence')
+        self.tabel_column3 = ('Traditional', 'Pinyin', 'Meaning', 'Sentence', 'S. Pinyin', 'Translation')
+        self.tabel_column4 = ('Traditional', 'Pinyin', 'Meaning', 'Audio', 'Sentence', 'S. Pinyin', 'Translation')
 
         if self.addAudio.get() and self.addSentence.get():
             self.tabel_column = self.tabel_column4
@@ -117,8 +117,9 @@ class VocabGenerator(Tkinter.Frame):
             self.tree.heading('#2', text='Pinyin')
             self.tree.heading('#3', text='Meaning')
             self.tree.heading('#4', text='Sentence')
-            self.tree.heading('#5', text='Audio')
-            
+            self.tree.heading('#5', text='S. Pinyin')
+            self.tree.heading('#6', text='Translation')
+            self.tree.heading('#7', text='Audio')
 
             self.tree.column('#0', stretch=Tkinter.YES)
             self.tree.column('#1', stretch=Tkinter.YES)
@@ -126,7 +127,9 @@ class VocabGenerator(Tkinter.Frame):
             self.tree.column('#3', stretch=Tkinter.YES)
             self.tree.column('#4', stretch=Tkinter.YES)
             self.tree.column('#5', stretch=Tkinter.YES)
-            
+            self.tree.column('#6', stretch=Tkinter.YES)
+            self.tree.column('#7', stretch=Tkinter.YES)
+
 
         else:
             if self.addAudio.get():
@@ -154,12 +157,16 @@ class VocabGenerator(Tkinter.Frame):
                 self.tree.heading('#2', text='Pinyin')
                 self.tree.heading('#3', text='Meaning')
                 self.tree.heading('#4', text='Sentence')
+                self.tree.heading('#5', text='S. Pinyin')
+                self.tree.heading('#6', text='Translation')
 
                 self.tree.column('#0', stretch=Tkinter.YES)
                 self.tree.column('#1', stretch=Tkinter.YES)
                 self.tree.column('#2', stretch=Tkinter.YES)
                 self.tree.column('#3', stretch=Tkinter.YES)
                 self.tree.column('#4', stretch=Tkinter.YES)
+                self.tree.column('#5', stretch=Tkinter.YES)
+                self.tree.column('#6', stretch=Tkinter.YES)
 
             else:
                 self.edit.entryconfig("Add Sentences", state="disabled")
@@ -175,12 +182,11 @@ class VocabGenerator(Tkinter.Frame):
                 self.tree.column('#1', stretch=Tkinter.YES)
                 self.tree.column('#2', stretch=Tkinter.YES)
                 self.tree.column('#3', stretch=Tkinter.YES)
-        
+
+        style = ttk.Style(self.parent)
+        style.configure('Treeview')
         self.tree.grid(row=4, columnspan=4, sticky='nsew', padx="10", pady="10")
         self.treeview = self.tree
-
-        
-
 
     def insert_data(self):
         ch_sim = self.ch_sim_entry.get()
@@ -223,24 +229,26 @@ class VocabGenerator(Tkinter.Frame):
             translator = Translator()
             t = translator.translate(ch_sim, src='zh-cn', dest="en")
             ch_mean = t.text
+
         self.ch_sent=""
+        self.ch_sent_pinyin = ""
+        self.ch_sent_translate = ""
+        
         if len(ch_sim) > 0:
             try:
                 if self.addAudio.get() and self.addSentence.get():
-                    self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, ch_audio))
+                    self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate, ch_audio))
                 else:
                     if self.addAudio.get():
                         self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, ch_audio))
                     elif self.addSentence.get():
-                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent))
+                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate))
                     else:
                         self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean))
-                
-                
+
                 self.save_audio(ch_sim)
             except:
                 print("Insert Error")
-
 
     def delete_data(self):
         try:
@@ -254,7 +262,7 @@ class VocabGenerator(Tkinter.Frame):
             selected_item = self.treeview.selection()[0]
 
             window = Tkinter.Toplevel(self.parent)
-            window.geometry('500x250')
+            window.geometry('500x350')
 
             edit_sim_label = Tkinter.Label(window, text="Simplified")
             edit_sim_label.pack()
@@ -292,6 +300,20 @@ class VocabGenerator(Tkinter.Frame):
                 edit_sent_entry.pack(fill='x', padx="10")
                 edit_sent_entry.insert(0, str(self.treeview.item(selected_item)['values'][3]))
 
+                edit_sent_pinyin_label = Tkinter.Label(window, text="Sentence Pinyin")
+                edit_sent_pinyin_label.pack()
+
+                edit_sent_pinyin_entry = Tkinter.Entry(window)
+                edit_sent_pinyin_entry.pack(fill='x', padx="10")
+                edit_sent_pinyin_entry.insert(0, str(self.treeview.item(selected_item)['values'][4]))
+
+                edit_sent_translate_label = Tkinter.Label(window, text="Translation")
+                edit_sent_translate_label.pack()
+
+                edit_sent_translate_entry = Tkinter.Entry(window)
+                edit_sent_translate_entry.pack(fill='x', padx="10")
+                edit_sent_translate_entry.insert(0, str(self.treeview.item(selected_item)['values'][5]))
+
             def ok():
                 try:
                     selected_item = self.treeview.selection()[0]
@@ -305,16 +327,18 @@ class VocabGenerator(Tkinter.Frame):
 
                         if self.addSentence.get():
                             self.treeview.set(selected_item, '#4', edit_sent_entry.get())
+                            self.treeview.set(selected_item, '#5', edit_sent_pinyin_entry.get())
+                            self.treeview.set(selected_item, '#6', edit_sent_translate_entry.get())
 
                     else:
                         self.treeview.delete(selected_item)
 
                         if self.addAudio.get() and self.addSentence.get():
-                            self.treeview.insert('', 'end', text=edit_sim_entry.get(), values=(edit_trad_entry.get(), edit_pin_entry.get(), edit_mean_entry.get(), edit_sent_entry.get(), ch_audio))
+                            self.treeview.insert('', 'end', text=edit_sim_entry.get(), values=(edit_trad_entry.get(), edit_pin_entry.get(), edit_mean_entry.get(), edit_sent_entry.get(), edit_sent_pinyin_entry.get(), edit_sent_translate_entry.get(), ch_audio))
                             
                         else:
                             if self.addSentence.get():
-                                self.treeview.insert('', 'end', text=edit_sim_entry.get(), values=(edit_trad_entry.get(), edit_pin_entry.get(), edit_mean_entry.get(), edit_sent_entry.get()))
+                                self.treeview.insert('', 'end', text=edit_sim_entry.get(), values=(edit_trad_entry.get(), edit_pin_entry.get(), edit_mean_entry.get(), edit_sent_entry.get(), edit_sent_pinyin_entry.get(), edit_sent_translate_entry.get()))
                             elif self.addAudio.get():
                                 self.treeview.insert('', 'end', text=edit_sim_entry.get(), values=(edit_trad_entry.get(), edit_pin_entry.get(), edit_mean_entry.get(), ch_audio))
                                 self.save_audio(edit_sim_entry.get())
@@ -326,25 +350,8 @@ class VocabGenerator(Tkinter.Frame):
 
                 window.destroy()
 
-            sent = str(self.treeview.item(selected_item)['values'][3])
-            def add_pinyin_sent():
-                seg_list = jieba.cut(sent, cut_all=True)
-                p = pinyin.get(" ".join(seg_list))
-                edit_sent_entry.insert('end', p)
-            def add_translate_sent():
-                translator = Translator()
-                t = translator.translate(sent, src='zh-cn', dest="en")
-                edit_sent_entry.insert('end', t.text)
-
-            add_pinyin_btn = Tkinter.Button(window, text="Pinyin", command=add_pinyin_sent)
-            add_translate_btn = Tkinter.Button(window, text="Translate", command=add_translate_sent)
-
-            if self.addSentence.get():
-                add_pinyin_btn.pack(side=LEFT, padx="5", pady="5")
-                add_translate_btn.pack(side=LEFT, padx="5", pady="5")
-
             ok_button = Tkinter.Button(window, text="OK", command=ok)
-            ok_button.pack(side=RIGHT, padx="5")
+            ok_button.pack(pady="5")
                 
         except:
             print("Edit Error")
@@ -361,19 +368,23 @@ class VocabGenerator(Tkinter.Frame):
 
                 if self.addAudio.get() and self.addSentence.get():
                     sen = self.treeview.item(child)["values"][3]
-                    aud = self.treeview.item(child)["values"][4]
+                    s_pin = self.treeview.item(child)["values"][4]
+                    s_tr = self.treeview.item(child)["values"][5]
+                    aud = self.treeview.item(child)["values"][6]
                     
-                    line += sen + "\t" + aud
+                    line += sen + "\t" + s_pin + "\t" + s_tr + "\t" + aud
             
                 else:
                     if self.addSentence.get():
                         sen = self.treeview.item(child)["values"][3]
-                        line += sen
+                        s_pin = self.treeview.item(child)["values"][4]
+                        s_tr = self.treeview.item(child)["values"][5]
+                        line += sen + "\t" + s_pin + "\t" + s_tr
             
                     elif self.addAudio.get():
-                        sen = self.treeview.item(child)["values"][3]
+                        aud = self.treeview.item(child)["values"][3]
                         line += aud
-                        self.save_audio(edit_sim_entry.get())
+                        self.save_audio(sim)
                     
                 print(line)
                 
@@ -420,7 +431,6 @@ class VocabGenerator(Tkinter.Frame):
             frame = Frame(window)
             frame.pack(side="top", anchor=N, fill="both", expand=True, padx="10", pady="10")
 
-
             scrollbar = Scrollbar(frame)
             scrollbar.pack(side="right", fill="y")
 
@@ -439,8 +449,21 @@ class VocabGenerator(Tkinter.Frame):
             def sent_add_to_table():
                 s = sen_list.get(ACTIVE)
                 s = HanziConv.toSimplified(s)
+                       
                 self.ch_sent += ''.join(s)
-                self.treeview.set(selected_item, '#4', self.ch_sent)       
+                self.treeview.set(selected_item, '#4', self.ch_sent)     
+
+                seg_list = jieba.cut(s, cut_all=True)
+                p = pinyin.get(" ".join(seg_list))
+
+                self.ch_sent_pinyin += p
+                self.treeview.set(selected_item, '#5', self.ch_sent_pinyin)
+
+                translator = Translator()
+                t = translator.translate(s, src='zh-cn', dest="en")
+
+                self.ch_sent_translate += t.text + " "  # space between sentences
+                self.treeview.set(selected_item, '#6', self.ch_sent_translate)
 
             scrollbar.config(command=sen_list.yview)
             sen_list.config(yscrollcommand=scrollbar.set)
@@ -484,8 +507,7 @@ class VocabGenerator(Tkinter.Frame):
 
         l_button = Tkinter.Button(window, text="View License", command=open_l)
         l_button.pack(pady="5")
-        
-        
+
 def main():
     root=Tkinter.Tk()
     d=VocabGenerator(root)
