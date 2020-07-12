@@ -6,7 +6,7 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 
 ### Update 
 V1.2
-- Sentences, Sentences Pinyin and Translations in separate fields
+- Sentences, Sentences Pinyin and Translations in separate fields 
 
 ## Features
 - Traditional, Pinyin, Meaning and Audio generated automatically
