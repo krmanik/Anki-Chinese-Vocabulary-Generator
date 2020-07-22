@@ -364,7 +364,7 @@ class VocabGenerator(Tkinter.Frame):
                 pin = self.treeview.item(child)["values"][1]
                 mean = self.treeview.item(child)["values"][2]
 
-                line = sim + "\t" + trad + "\t" + pin + "\t" + mean + "\t"
+                line = sim + "\t" + trad + "\t" + pin + "\t" + mean
 
                 if self.addAudio.get() and self.addSentence.get():
                     sen = self.treeview.item(child)["values"][3]
@@ -372,18 +372,18 @@ class VocabGenerator(Tkinter.Frame):
                     s_tr = self.treeview.item(child)["values"][5]
                     aud = self.treeview.item(child)["values"][6]
                     
-                    line += sen + "\t" + s_pin + "\t" + s_tr + "\t" + aud
+                    line += "\t" + sen + "\t" + s_pin + "\t" + s_tr + "\t" + aud
             
                 else:
                     if self.addSentence.get():
                         sen = self.treeview.item(child)["values"][3]
                         s_pin = self.treeview.item(child)["values"][4]
                         s_tr = self.treeview.item(child)["values"][5]
-                        line += sen + "\t" + s_pin + "\t" + s_tr
+                        line += "\t"  + sen + "\t" + s_pin + "\t" + s_tr
             
                     elif self.addAudio.get():
                         aud = self.treeview.item(child)["values"][3]
-                        line += aud
+                        line += "\t" + aud
                         self.save_audio(sim)
                     
                 print(line)
@@ -499,7 +499,7 @@ class VocabGenerator(Tkinter.Frame):
         sub_label = Tkinter.Label(window, text="Chinese Vocabulary Generator")
         sub_label.pack()
         
-        v_label = Tkinter.Label(window, text="V 1.1")
+        v_label = Tkinter.Label(window, text="V 1.2")
         v_label.pack()
 
         def open_l():
