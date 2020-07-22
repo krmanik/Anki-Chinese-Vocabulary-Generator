@@ -238,15 +238,16 @@ class VocabGenerator(Tkinter.Frame):
             try:
                 if self.addAudio.get() and self.addSentence.get():
                     self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate, ch_audio))
+                    self.save_audio(ch_sim)
                 else:
                     if self.addAudio.get():
                         self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, ch_audio))
+                        self.save_audio(ch_sim)
                     elif self.addSentence.get():
                         self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate))
                     else:
                         self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean))
 
-                self.save_audio(ch_sim)
             except:
                 print("Insert Error")
 
