@@ -45,8 +45,9 @@ https://git-scm.com/
 1. Install [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3) from play store
 2. Download this repository
 3. Install following using Pip inside Pydroid 3
-<br>
-*Note: It requires this [Pydroid repository plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo).*
+<br/>
+Note: It requires this [Pydroid_repository_plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo)
+
 ```
 jieba
 gTTS
@@ -55,8 +56,9 @@ pycedict
 hanziconv
 googletrans
 ```
+
 4. Download this keyboard [搜狗输入法 sōugǒu shūrù fǎ sogou Input](https://play.google.com/store/apps/details?id=com.sohu.inputmethod.sogou) from play store
-**Note: Other keyboard will not help in typing chinese characters** 
+<br/>**Note: Other keyboard will not help in typing chinese characters** 
 5. Open the ```main_for_android.py``` inside Pydroid 3
 6. Run the script and start adding words
 
