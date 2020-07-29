@@ -46,7 +46,7 @@ https://git-scm.com/
 2. Download this repository
 3. Install following using Pip inside Pydroid 3
 <br>
-*Note: It requires this [Pydroid repository plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo)*
+*Note: It requires this [Pydroid repository plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo).*
 ```
 jieba
 gTTS
@@ -59,6 +59,9 @@ googletrans
 **Note: Other keyboard will not help in typing chinese characters** 
 5. Open the ```main_for_android.py``` inside Pydroid 3
 6. Run the script and start adding words
+
+#### Image
+<img src="Images/pydroid_3.PNG" height="400" width="390"></img>
 
 ### Demo
 <img src="Images/demo_android.gif" height="528" width="265"></img>
