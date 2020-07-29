@@ -3,8 +3,8 @@ import json
 import jieba
 import shutil
 import pinyin
-import tts.sapi
 import sqlite3
+import platform
 import webbrowser
 import tkinter as Tkinter
 import tkinter.ttk as ttk
@@ -54,9 +54,6 @@ class VocabGenerator(Tkinter.Frame):
         
         self.menubar.add_cascade(label="Edit", menu=self.edit)
 
-        self.setting = Menu(self.menubar, tearoff=0)
-        self.menubar.add_cascade(label="Setting", command=self.settings)
-
         self.help = Menu(self.menubar, tearoff=0)
         self.help.add_command(label="About", command=self.about)
         self.help.add_separator()
@@ -86,16 +83,20 @@ class VocabGenerator(Tkinter.Frame):
 
     def new_data(self):
         self.new_window = Tkinter.Toplevel(self.parent)
-        self.new_window.geometry('300x200')
+        if 'aarch64' in platform.platform():
+            self.new_window.attributes('-fullscreen', True)
+        else:
+            self.new_window.geometry('600x600')
+        
         self.new_window.attributes('-topmost', 'true')
-
-        title_label = Tkinter.Label(self.new_window, text="xiehanzi 1.3", fg="cornflowerblue", font=("Helvetica", 16))
+        
+        title_label = Tkinter.Label(self.new_window, text="xiehanzi", fg="cornflowerblue", font=("Helvetica", 16))
         title_label.pack(pady="15")
         
         self.options_label = Tkinter.Label(self.new_window, text="Want to add?")
         self.options_label.pack()
     
-        addAudioCheckbutton = Checkbutton(self.new_window, text = "Audio    ", variable = self.addAudio, onvalue = 1, offvalue = 0)
+        addAudioCheckbutton = Checkbutton(self.new_window, text = "Audio      ", variable = self.addAudio, onvalue = 1, offvalue = 0)
         addSentenceCheckbutton = Checkbutton(self.new_window, text = "Sentence", variable = self.addSentence, onvalue = 1, offvalue = 0)
         
         addAudioCheckbutton.pack()
@@ -189,14 +190,13 @@ class VocabGenerator(Tkinter.Frame):
                 self.tree.column('#3', stretch=Tkinter.YES)
 
         style = ttk.Style(self.parent)
-        style.configure('Treeview')
+        
+        if 'aarch64' in platform.platform():
+            style.configure('Treeview', rowheight=60)
+        else:
+            style.configure('Treeview')
         
         self.tree.pack(padx="10", pady="10", fill=BOTH, expand=1)
-        
-        sb_x = Tkinter.Scrollbar(self.parent, orient="horizontal", command=self.tree.xview)
-        sb_x.pack(expand='yes', fill='x')
-        self.tree.configure(xscrollcommand=sb_x.set)
-
         self.treeview = self.tree
 
     def insert_data(self):
@@ -274,7 +274,11 @@ class VocabGenerator(Tkinter.Frame):
             selected_item = self.treeview.selection()[0]
 
             window = Tkinter.Toplevel(self.parent)
-            window.geometry('500x350')
+
+            if 'aarch64' in platform.platform():
+                window.attributes("-fullscreen", True)
+            else:
+                window.geometry('500x350')
 
             edit_sim_label = Tkinter.Label(window, text="Simplified")
             edit_sim_label.pack()
@@ -423,9 +427,6 @@ class VocabGenerator(Tkinter.Frame):
             if self.addAudioFromgTTS:
                 t = gTTS(ch_sim, lang="zh-cn")
                 t.save('xiehanzi/'+ fname)
-            else:
-                voice = tts.sapi.Sapi()
-                voice.create_recording('xiehanzi/'+ fname, ch_sim)
 
     def contains_digit(s):
         isdigit = str.isdigit
@@ -437,7 +438,10 @@ class VocabGenerator(Tkinter.Frame):
             sim_entry = self.treeview.item(selected_item)['text']
 
             window = Tkinter.Tk()
-            window.geometry('400x400')
+            if 'aarch64' in platform.platform():
+                window.attributes("-fullscreen", True)
+            else:
+                window.geometry('400x400')
             window.title("Add Sentence")
 
             frame = Frame(window)
@@ -477,6 +481,8 @@ class VocabGenerator(Tkinter.Frame):
                 self.ch_sent_translate += t.text + " "  # space between sentences
                 self.treeview.set(selected_item, '#6', self.ch_sent_translate)
 
+                window.destroy()
+
             scrollbar.config(command=sen_list.yview)
             sen_list.config(yscrollcommand=scrollbar.set)
             
@@ -486,29 +492,22 @@ class VocabGenerator(Tkinter.Frame):
         except:
             print('Error Adding Sentences')
 
-    def settings(self):
-        window = Tkinter.Toplevel(self.parent)
-        window.title("Setting")
-
-        msg_label = Tkinter.Label(window, text="Generate audio using")
-        msg_label.pack()
-        
-        addAudioFromgTTSCheckbutton = Checkbutton(window, text = "gTTS     ", variable = self.addAudioFromgTTS, onvalue = 1, offvalue = 0)
-        addAudioFromgTTSCheckbutton.pack(side="left")
-
     def view_docs(self):
-        webbrowser.open_new("https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator")
+        try:
+            webbrowser.open_new("https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator")
+        except:
+            messagebox.showinfo("Open in browser", "https://github.com/infinyte7\n/Anki-Chinese-Vocabulary-Generator")
 
     def about(self):
         window = Tkinter.Tk()
         window.title("About")
 
-        title_label = Tkinter.Label(window, text="xiehanzi", fg="cornflowerblue", font=("Helvetica", 16))
+        title_label = Tkinter.Label(window, text="xiehanzi", fg="cornflowerblue", font=("Helvetica", 26))
         title_label.pack()
 
         sub_label = Tkinter.Label(window, text="Chinese Vocabulary Generator")
         sub_label.pack()
-
+        
         v_label = Tkinter.Label(window, text="V 1.3")
         v_label.pack()
 
@@ -516,12 +515,13 @@ class VocabGenerator(Tkinter.Frame):
         m_label.pack()
 
         def open_l():
-            webbrowser.open_new("https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator/blob/master/License.md")
+            try:
+                webbrowser.open_new("https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator/blob/master/License.md")
+            except:
+                messagebox.showinfo("Open in browser", "https://github.com/infinyte7/\nAnki-Chinese-Vocabulary-Generator/\nblob/master/License.md")
 
         l_button = Tkinter.Button(window, text="View License", command=open_l)
         l_button.pack(pady="5")
-
-
 
 def main():
     def confirm_exit_main():
@@ -530,10 +530,12 @@ def main():
 
     root=Tkinter.Tk()
     d=VocabGenerator(root)
+    if 'aarch64' in platform.platform():
+    	root.attributes("-fullscreen", True)
     root.protocol("WM_DELETE_WINDOW", confirm_exit_main)
     root.mainloop()
 
-    
+
 
 if __name__=="__main__":
     main()
