@@ -41,6 +41,28 @@ https://git-scm.com/
 
 3. Run ```main.py``` and start adding words
 
+## To run Android using Pydroid 3
+1. Install [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3) from play store
+2. Download this repository
+3. Install following using Pip inside Pydroid 3
+<br>
+*Note: It requires this [Pydroid repository plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo)*
+```
+jieba
+gTTS
+pinyin
+pycedict
+hanziconv
+googletrans
+```
+4. Download this keyboard [搜狗输入法 sōugǒu shūrù fǎ sogou Input](https://play.google.com/store/apps/details?id=com.sohu.inputmethod.sogou) from play store
+**Note: Other keyboard will not help in typing chinese characters** 
+5. Open the ```main_for_android.py``` inside Pydroid 3
+6. Run the script and start adding words
+
+### Demo
+<img src="Images/demo_android.gif" height="528" width="265"></img>
+
 # Note
 Languages & voices for [DeepHorizons/tts](https://github.com/DeepHorizons/tts) may be needed to install.
 
