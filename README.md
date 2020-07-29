@@ -41,7 +41,7 @@ https://git-scm.com/
 
 3. Run ```main.py``` and start adding words
 
-## To run Android using Pydroid 3
+## To run on Android using Pydroid 3
 1. Install [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3) from play store
 2. Download this repository
 3. Install following using Pip inside Pydroid 3. It requires [Pydroid repository plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo)
