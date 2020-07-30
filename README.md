@@ -4,7 +4,10 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 ## Demo
 ![demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/demo.gif)
 
-### Update 
+### Update
+V1.3.1
+- Minor bug fixes
+ 
 V1.3
 - Added Scrollbar
 - Updates related to ui

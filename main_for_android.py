@@ -463,13 +463,13 @@ class VocabGenerator(Tkinter.Frame):
                 sen_list.insert(i, sent[i])
 
             def sent_add_to_table():
-                s = sen_list.get(ACTIVE)
+                s = ''.join(sen_list.get(ACTIVE))
                 s = HanziConv.toSimplified(s)
                        
                 self.ch_sent += ''.join(s)
                 self.treeview.set(selected_item, '#4', self.ch_sent)     
 
-                seg_list = jieba.cut(s, cut_all=True)
+                seg_list = jieba.cut(s, cut_all=False)
                 p = pinyin.get(" ".join(seg_list))
 
                 self.ch_sent_pinyin += p
