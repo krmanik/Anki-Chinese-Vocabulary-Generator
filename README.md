@@ -5,6 +5,11 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 ![demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/demo.gif)
 
 ### Update 
+V1.3
+- Added Scrollbar
+- Updates related to ui
+- Added script to be run inside Pydroid 3 on Android
+
 V1.2
 - Sentences, Sentences Pinyin and Translations in separate fields 
 
