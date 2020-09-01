@@ -101,8 +101,6 @@ Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/A
 # Contribute
 Code optimization will be appreciated.
 
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/L3L820U7D)
-
 # Todo 
 - Stop freezing when translating the sentences
 
