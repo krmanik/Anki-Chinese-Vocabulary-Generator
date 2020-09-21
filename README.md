@@ -51,7 +51,7 @@ https://git-scm.com/
 
 ## To run on linux
 Download this repository and then follow the steps:
-1. Install python3
+1. Install python3 [https://www.python.org](https://www.python.org/)
 2. Install pip3
 ```
 python3-pip
@@ -69,9 +69,9 @@ Command to install
 ```
 python3 -m pip install -r requirements_linux.txt
 ```
-4. Run ```main_for_android.py```
+4. Run ```main_for_linux.py```
 ```
-python3 main_for_android.py
+python3 main_for_linux.py
 ```
 
 ## To run on Android using Pydroid 3
