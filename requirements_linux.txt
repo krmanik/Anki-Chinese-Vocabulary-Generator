@@ -1,0 +1,6 @@
+jieba
+gTTS
+pinyin
+pycedict
+hanziconv
+googletrans

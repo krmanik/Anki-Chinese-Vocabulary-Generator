@@ -25,7 +25,7 @@ V1.2
 - Save list to text file, can be imported to Anki
 - Edit / Delete 
 
-## Quick start
+## Quick start (Windows)
  1. Install Python [https://www.python.org](https://www.python.org/)
  2. Download this repository 
  2. Install required library in ```requirements.txt```
@@ -48,6 +48,31 @@ git+https://github.com/DeepHorizons/tts
 https://git-scm.com/
 
 3. Run ```main.py``` and start adding words
+
+## To run on linux
+Download this repository and then follow the steps:
+1. Install python3
+2. Install pip3
+```
+python3-pip
+```
+3. Install following dependencies
+```
+jieba
+gTTS
+pinyin
+pycedict
+hanziconv
+googletrans
+```
+Command to install
+```
+python3 -m pip install -r requirements_linux.txt
+```
+4. Run ```main_for_android.py```
+```
+python3 main_for_android.py
+```
 
 ## To run on Android using Pydroid 3
 1. Install [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3) from play store
