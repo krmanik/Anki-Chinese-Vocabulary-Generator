@@ -4,6 +4,16 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 ## Demo
 ![demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/demo.gif)
 
+## Features
+- Generate word list from imported file
+- Traditional, Pinyin, Meaning and Audio generated automatically
+- Offline fetch meaning from ```data``` folder. (cedict)
+- Fetch sentences from ```data.db``` offline 
+- Fetch meaning using Google translate when not found in cedict
+- Save audio file in using [gTTS](https://gtts.readthedocs.io/) or [DeepHorizons/tts](https://github.com/DeepHorizons/tts)
+- Save list to text file, can be imported to Anki
+- Edit / Delete 
+
 ### Update
 V1.4
 - Create word list from text file
@@ -28,15 +38,6 @@ V1.3
 
 V1.2
 - Sentences, Sentences Pinyin and Translations in separate fields 
-
-## Features
-- Traditional, Pinyin, Meaning and Audio generated automatically
-- Offline fetch meaning from ```data``` folder. (cedict)
-- Fetch sentences from ```data.db``` offline 
-- Fetch meaning using Google translate when not found in cedict
-- Save audio file in using [gTTS](https://gtts.readthedocs.io/) or [DeepHorizons/tts](https://github.com/DeepHorizons/tts)
-- Save list to text file, can be imported to Anki
-- Edit / Delete 
 
 ## Quick start (Windows)
  1. Install Python [https://www.python.org](https://www.python.org/)
