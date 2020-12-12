@@ -5,6 +5,19 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 ![demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/demo.gif)
 
 ### Update
+V1.4
+- Create word list from text file
+Select ```Import``` from File menu. File should contain one word per line.
+Ex:- ```example.txt```
+```
+不
+菜
+茶
+吃
+出租车
+打电话
+```
+
 V1.3.1
 - Minor bug fixes
  
