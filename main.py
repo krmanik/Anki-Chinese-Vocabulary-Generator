@@ -94,7 +94,7 @@ class VocabGenerator(Tkinter.Frame):
         self.new_window.geometry('300x200')
         self.new_window.attributes('-topmost', 'true')
 
-        title_label = Tkinter.Label(self.new_window, text="xiehanzi 1.3", fg="cornflowerblue", font=("Helvetica", 16))
+        title_label = Tkinter.Label(self.new_window, text="xiehanzi 1.4", fg="cornflowerblue", font=("Helvetica", 16))
         title_label.pack(pady="15")
         
         self.options_label = Tkinter.Label(self.new_window, text="Want to add?")
