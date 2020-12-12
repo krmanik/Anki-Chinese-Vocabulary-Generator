@@ -9,12 +9,15 @@ import webbrowser
 import tkinter as Tkinter
 import tkinter.ttk as ttk
 import tkinter.messagebox
+from tkinter.filedialog import askopenfilename
 
 from gtts import gTTS
 from tkinter import *
 from hanziconv import HanziConv
 from googletrans import Translator
 from cedict.pinyin import pinyinize
+
+import traceback
 
 class VocabGenerator(Tkinter.Frame):
 
@@ -40,6 +43,8 @@ class VocabGenerator(Tkinter.Frame):
         self.menubar = Menu(self.parent)
 
         self.file = Menu(self.menubar, tearoff=0)
+        self.file.add_command(label="Import", command=self.import_file)
+        self.file.add_separator()
         self.file.add_command(label="Save", command=self.save_data)
         self.file.add_separator()
         self.file.add_command(label="Exit", command=self.confirm_exit)
@@ -201,66 +206,7 @@ class VocabGenerator(Tkinter.Frame):
 
     def insert_data(self):
         ch_sim = self.ch_sim_entry.get()
-        self.simp = ch_sim
-        self.ch_sim_entry.delete(0, 'end')
-
-        ch_pin=""
-        ch_mean = ""
-        ch_trad = HanziConv.toTraditional(ch_sim)
-        ch_audio = "[sound:xiehanzi/cmn-" + ch_sim + ".mp3]"
-        
-        found = False
-
-        try:
-            j = "json_data/" + ch_sim + ".json"
-            f = open(j, encoding="utf-8")
-            d = json.load(f)
-            
-            # when pinyin present in json file, fetch from there as pinyin library provide incorrect pinyin
-            try:
-                ch_pin = pinyinize(d["pinyin"])
-                if self.contains_digit(ch_pin):
-                    raise Exception('Contain number')
-            except Exception as error:
-                ch_pin = pinyin.get(ch_sim)
-            
-            i=0
-            for i in range(len(d['definitions'])):
-                ch_mean += str(d["definitions"][i]) + ", "
-                
-            ch_mean = ch_mean.rstrip(', ')
-
-            found = True
-        except:
-            print("json not found in data folder, fetching online")
-
-        if not found and len(ch_sim) > 0:
-            ch_pin = pinyin.get(ch_sim)
-            
-            translator = Translator()
-            t = translator.translate(ch_sim, src='zh-cn', dest="en")
-            ch_mean = t.text
-
-        self.ch_sent=""
-        self.ch_sent_pinyin = ""
-        self.ch_sent_translate = ""
-        
-        if len(ch_sim) > 0:
-            try:
-                if self.addAudio.get() and self.addSentence.get():
-                    self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate, ch_audio))
-                    self.save_audio(ch_sim)
-                else:
-                    if self.addAudio.get():
-                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, ch_audio))
-                        self.save_audio(ch_sim)
-                    elif self.addSentence.get():
-                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate))
-                    else:
-                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean))
-
-            except:
-                print("Insert Error")
+        self.insert_meaning(ch_sim)
 
     def delete_data(self):
         try:
@@ -359,6 +305,7 @@ class VocabGenerator(Tkinter.Frame):
                 
                 except:
                     print("Update Error")
+                    traceback.print_exc()
 
                 window.destroy()
 
@@ -367,6 +314,7 @@ class VocabGenerator(Tkinter.Frame):
                 
         except:
             print("Edit Error")
+            traceback.print_exc()
         
     def save_data(self):
         with open('output.txt','w', encoding='utf8') as f:
@@ -412,11 +360,11 @@ class VocabGenerator(Tkinter.Frame):
         fname = "cmn-" + ch_sim + ".mp3"
 
         found = False 
-        try:
-            h = "audio_data/cmn-" + ch_sim + ".mp3"
+        h = "audio_data/cmn-" + ch_sim + ".mp3"
+        if os.path.exists(h):
             shutil.copy(h, 'xiehanzi/')
             found = True
-        except:
+        else:
             print('Audio not found in data folder, fetching online')
 
         if not found:
@@ -509,7 +457,7 @@ class VocabGenerator(Tkinter.Frame):
         sub_label = Tkinter.Label(window, text="Chinese Vocabulary Generator")
         sub_label.pack()
 
-        v_label = Tkinter.Label(window, text="V 1.3")
+        v_label = Tkinter.Label(window, text="V 1.4")
         v_label.pack()
 
         m_label = Tkinter.Label(window, text="Infinyte7")
@@ -521,8 +469,80 @@ class VocabGenerator(Tkinter.Frame):
         l_button = Tkinter.Button(window, text="View License", command=open_l)
         l_button.pack(pady="5")
 
+    def import_file(self):              
+        Tk().withdraw()
+        filename = askopenfilename()
+        print(filename)
+        with open(filename, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            for l in lines:
+                print(l)
+                self.insert_meaning(l.strip())
+                
+    def insert_meaning(self, word):
+        ch_sim = word
+        self.simp = ch_sim
+        self.ch_sim_entry.delete(0, 'end')
 
+        ch_pin=""
+        ch_mean = ""
+        ch_trad = HanziConv.toTraditional(ch_sim)
+        ch_audio = "[sound:xiehanzi/cmn-" + ch_sim + ".mp3]"
 
+        found = False
+
+        try:
+            j = "json_data/" + ch_sim + ".json"
+            f = open(j, encoding="utf-8")
+            d = json.load(f)
+            
+            # when pinyin present in json file, fetch from there as pinyin library provide incorrect pinyin
+            try:
+                ch_pin = pinyinize(d["pinyin"])
+                if self.contains_digit(ch_pin):
+                    raise Exception('Contain number')
+            except Exception as error:
+                ch_pin = pinyin.get(ch_sim)
+            
+            i=0
+            for i in range(len(d['definitions'])):
+                ch_mean += str(d["definitions"][i]) + ", "
+                
+            ch_mean = ch_mean.rstrip(', ')
+
+            found = True
+        except:
+            print("json not found in data folder, fetching online")
+
+        if not found and len(ch_sim) > 0:
+            ch_pin = pinyin.get(ch_sim)
+            
+            translator = Translator()
+            t = translator.translate(ch_sim, src='zh-cn', dest="en")
+            ch_mean = t.text
+
+        self.ch_sent=""
+        self.ch_sent_pinyin = ""
+        self.ch_sent_translate = ""
+
+        if len(ch_sim) > 0:
+            try:
+                if self.addAudio.get() and self.addSentence.get():
+                    self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate, ch_audio))
+                    self.save_audio(ch_sim)
+                else:
+                    if self.addAudio.get():
+                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, ch_audio))
+                        self.save_audio(ch_sim)
+                    elif self.addSentence.get():
+                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean, self.ch_sent, self.ch_sent_pinyin, self.ch_sent_translate))
+                    else:
+                        self.treeview.insert('', 'end', text=ch_sim, values=(ch_trad, ch_pin, ch_mean))
+
+            except:
+                print("Insert Error")
+                traceback.print_exc()
+                
 def main():
     def confirm_exit_main():
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
@@ -533,7 +553,6 @@ def main():
     root.protocol("WM_DELETE_WINDOW", confirm_exit_main)
     root.mainloop()
 
-    
 
 if __name__=="__main__":
     main()
