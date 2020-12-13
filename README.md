@@ -96,7 +96,7 @@ pip3 install -r requirements_mac.txt
 ```
 5. Run ```main_for_mac.py```
 ```
-python3 main_for_linux.py
+python3 main_for_mac.py
 ```
 
 ### Demo
