@@ -41,7 +41,7 @@ git+https://github.com/DeepHorizons/tts
 
 ## Download Standalone windows program from Patreon. No need to install anything. 
 Just download, extract, run and start creating word lists. <br>
-Download Now <br>
+**Download Now** <br>
 https://www.patreon.com/kr_mani
 
 ## Demo
@@ -115,7 +115,7 @@ The ```audio_data``` folder contains audio taken from https://github.com/hugolpz
 
 # Import in Anki 
 Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/Anki-xiehanzi)
-1. Copy ```xiehanzi``` to ```collection.media``` folder in Anki
+1. Copy audio from ```xiehanzi``` folder to ```collection.media``` folder in Anki
 2. Create a new deck
 3. Import generated ```xiehanzi.txt``` file
 4. Select ```Fields separated by: Tabs```
