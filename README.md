@@ -75,6 +75,33 @@ python3 -m pip install -r requirements_linux.txt
 python3 main_for_linux.py
 ```
 
+# To run on mac
+Download this repository and then follow the steps:
+1. Install python3 <br>[https://www.python.org](https://www.python.org/)
+2. Download this repository 
+ <br>https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator/archive/master.zip
+
+3. Install following dependencies
+```
+jieba
+gTTS
+pinyin
+pycedict
+hanziconv
+googletrans==4.0.0rc1
+```
+Command to install
+```
+pip3 install -r requirements_mac.txt
+```
+5. Run ```main_for_mac.py```
+```
+python3 main_for_linux.py
+```
+
+### Demo
+![](Images/demo_v1.4_mac.gif)
+
 ## To run on Android using Pydroid 3
 1. Install [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3) from play store
 2. Download this repository 

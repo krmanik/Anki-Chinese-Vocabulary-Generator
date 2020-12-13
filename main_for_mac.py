@@ -8,7 +8,7 @@ import platform
 import webbrowser
 import tkinter as Tkinter
 import tkinter.ttk as ttk
-import tkinter.messagebox
+from tkinter import messagebox
 
 from gtts import gTTS
 from tkinter import *
