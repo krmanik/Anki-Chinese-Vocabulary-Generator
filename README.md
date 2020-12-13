@@ -36,7 +36,7 @@ hanziconv
 googletrans
 git+https://github.com/DeepHorizons/tts
 ```
-
+Install latest version ```googletrans==4.0.0rc1```.
 5. Run ```main.py``` and start adding words
 
 ## Download Standalone windows program from Patreon. No need to install anything. 
