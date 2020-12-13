@@ -39,10 +39,14 @@ V1.3
 V1.2
 - Sentences, Sentences Pinyin and Translations in separate fields 
 
-## Quick start (Windows)
- 1. Install Python [https://www.python.org](https://www.python.org/)
+# Quick start (Windows)
+ 1. Install Python 
+ <br>[https://www.python.org](https://www.python.org/)
  2. Download this repository 
- 2. Install required library in ```requirements.txt```
+ <br>https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator/archive/master.zip
+ 3. Install git
+<br>https://git-scm.com/
+ 4. Install required library in ```requirements.txt```
  To install
 ```
 pip install -r requirements.txt
@@ -58,12 +62,17 @@ googletrans
 git+https://github.com/DeepHorizons/tts
 ```
 
-**Note: Install ```git``` also.**
-https://git-scm.com/
+5. Run ```main.py``` and start adding words
 
-3. Run ```main.py``` and start adding words
+## Download Standalone windows program from Patreon. No need to install anything. 
+Just download, extract, run and start creating word lists. <br>
+Download Now <br>
+https://www.patreon.com/kr_mani
 
-## To run on linux
+## Demo
+![](Images/demo_v1.4.gif)
+
+# To run on linux
 Download this repository and then follow the steps:
 1. Install python3 [https://www.python.org](https://www.python.org/)
 2. Install pip3
