@@ -14,31 +14,6 @@ Enter only simplified characters and create word meaning with Traditional, Pinyi
 - Save list to text file, can be imported to Anki
 - Edit / Delete 
 
-### Update
-V1.4
-- Create word list from text file
-Select ```Import``` from File menu. File should contain one word per line.
-Ex:- ```example.txt```
-```
-不
-菜
-茶
-吃
-出租车
-打电话
-```
-
-V1.3.1
-- Minor bug fixes
- 
-V1.3
-- Added Scrollbar
-- Updates related to ui
-- Added script to be run inside Pydroid 3 on Android
-
-V1.2
-- Sentences, Sentences Pinyin and Translations in separate fields 
-
 # Quick start (Windows)
  1. Install Python 
  <br>[https://www.python.org](https://www.python.org/)
@@ -74,12 +49,14 @@ https://www.patreon.com/kr_mani
 
 # To run on linux
 Download this repository and then follow the steps:
-1. Install python3 [https://www.python.org](https://www.python.org/)
-2. Install pip3
+1. Install python3 <br>[https://www.python.org](https://www.python.org/)
+2. Download this repository 
+ <br>https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator/archive/master.zip
+3. Install pip3
 ```
 python3-pip
 ```
-3. Install following dependencies
+4. Install following dependencies
 ```
 jieba
 gTTS
@@ -92,15 +69,16 @@ Command to install
 ```
 python3 -m pip install -r requirements_linux.txt
 ```
-4. Run ```main_for_linux.py```
+5. Run ```main_for_linux.py```
 ```
 python3 main_for_linux.py
 ```
 
 ## To run on Android using Pydroid 3
 1. Install [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3) from play store
-2. Download this repository
-3. Install following using Pip inside Pydroid 3. It requires [Pydroid repository plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo)
+2. Download this repository 
+ <br>https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator/archive/master.zip
+3. Install following using Pip inside Pydroid 3. It requires [Pydroid repository plugin](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3.quickinstallrepo) also.
 ```
 jieba
 gTTS
@@ -121,7 +99,7 @@ googletrans
 <img src="Images/demo_android.gif" height="528" width="265"></img>
 
 # Note
-Languages & voices for [DeepHorizons/tts](https://github.com/DeepHorizons/tts) may be needed to install.
+Languages & voices for [DeepHorizons/tts](https://github.com/DeepHorizons/tts) may be needed to install for windows.
 
 
 # Data
@@ -146,6 +124,9 @@ Use Anki Desktop to import it for [Anki-xiehanzi](https://github.com/infinyte7/A
 
 ![Demo](https://raw.githubusercontent.com/infinyte7/Anki-Chinese-Vocabulary-Generator/master/Images/import_demo.gif)
 
+# Changelog
+[Changelog.md](Changelog.md)
+
 # Contribute
 Code optimization will be appreciated.
 
@@ -154,3 +135,6 @@ Code optimization will be appreciated.
 
 # License
 Read [License.md](/License.md)
+
+# Support this project on Patreon
+https://www.patreon.com/kr_mani
