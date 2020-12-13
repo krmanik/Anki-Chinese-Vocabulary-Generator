@@ -7,6 +7,7 @@ import tts.sapi
 import sqlite3
 import webbrowser
 import tkinter as Tkinter
+from tkinter import font
 import tkinter.ttk as ttk
 import tkinter.messagebox
 from tkinter.filedialog import askopenfilename
@@ -24,6 +25,7 @@ class VocabGenerator(Tkinter.Frame):
     def __init__(self, parent):
         Tkinter.Frame.__init__(self, parent)
         self.parent=parent
+        self.parent.iconbitmap("icon.ico")
         self.init_ui()
 
     def init_ui(self):
@@ -71,13 +73,30 @@ class VocabGenerator(Tkinter.Frame):
 
         self.parent.config(menu=self.menubar)
 
-        self.ch_sim_label = Tkinter.Label(self.parent, text="Simplified")
-        self.ch_sim_entry = Tkinter.Entry(self.parent)
+
+        self.fontRoboto = font.Font(
+        family='Roboto', size=16, weight='bold')
+
+
+        self.ch_sim_label = Tkinter.Label(self.parent, text="Enter Simplified Characters")
+        self.ch_sim_label.config(
+            font=self.fontRoboto, fg="#5599ff")
         self.ch_sim_label.pack()
-        self.ch_sim_entry.pack()
+
+
+        self.entryFrame = Frame(
+            self.parent, background="#00ccff", borderwidth=1, relief=FLAT)
+
+        self.ch_sim_entry = Tkinter.Entry(self.entryFrame)
+        self.ch_sim_entry.config(bd=0, fg="#535d6c")
+
+        self.entryFrame.pack(fill=BOTH, padx=30, pady=6)
+        self.ch_sim_entry.pack(fill=BOTH)
 
         self.submit_button = Tkinter.Button(self.parent, text="Enter", command=self.insert_data)
-        self.submit_button.pack()
+        self.submit_button.config(highlightthickness=0, bd=0, fg="white", bg="#5fd38d",
+                                  activebackground="#5fd38d", activeforeground="white", font=self.fontRoboto)
+        self.submit_button.pack(pady=8)
 
         self.con = sqlite3.connect("data.db")
         self.cur = self.con.cursor()
@@ -93,6 +112,7 @@ class VocabGenerator(Tkinter.Frame):
         self.new_window = Tkinter.Toplevel(self.parent)
         self.new_window.geometry('300x200')
         self.new_window.attributes('-topmost', 'true')
+        self.new_window.iconbitmap("icon.ico")
 
         title_label = Tkinter.Label(self.new_window, text="xiehanzi 1.4", fg="cornflowerblue", font=("Helvetica", 16))
         title_label.pack(pady="15")
@@ -107,7 +127,10 @@ class VocabGenerator(Tkinter.Frame):
         addSentenceCheckbutton.pack()
 
         self.ok_button = Tkinter.Button(self.new_window, text="Enter", command=self.draw_table)
-        self.ok_button.pack(pady="10")        
+        self.ok_button.config(highlightthickness=0, bd=0, fg="white", bg="#5fd38d",
+                                  activebackground="#5fd38d", activeforeground="white", font=self.fontRoboto)
+        self.ok_button.pack(pady=8)
+
 
     def draw_table(self):
         self.new_window.destroy()
@@ -450,6 +473,7 @@ class VocabGenerator(Tkinter.Frame):
     def about(self):
         window = Tkinter.Tk()
         window.title("About")
+        window.geometry('300x250')
 
         title_label = Tkinter.Label(window, text="xiehanzi", fg="cornflowerblue", font=("Helvetica", 16))
         title_label.pack()
@@ -466,8 +490,23 @@ class VocabGenerator(Tkinter.Frame):
         def open_l():
             webbrowser.open_new("https://github.com/infinyte7/Anki-Chinese-Vocabulary-Generator/blob/master/License.md")
 
+        def open_p():
+            webbrowser.open_new("https://www.patreon.com/kr_mani")
+
         l_button = Tkinter.Button(window, text="View License", command=open_l)
-        l_button.pack(pady="5")
+        l_button.config(highlightthickness=0, bd=0, fg="white", bg="#5fd38d",
+                                  activebackground="#5fd38d", activeforeground="white", font=self.fontRoboto)
+        l_button.pack(pady=8)
+
+
+        s_label = Tkinter.Label(window, text="Support this project on Patreon")
+        s_label.pack()
+        
+        p_button = Tkinter.Button(window, text="Become a Patreon", command=open_p)
+        p_button.config(highlightthickness=0, bd=0, fg="white", bg="#f16551",
+                                  activebackground="#f17b6a", activeforeground="white", font=self.fontRoboto)
+        p_button.pack(pady=8)
+
 
     def import_file(self):              
         Tk().withdraw()
