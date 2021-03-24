@@ -3,4 +3,4 @@ gTTS
 pinyin
 pycedict
 hanziconv
-googletrans
+googletrans==4.0.0rc1

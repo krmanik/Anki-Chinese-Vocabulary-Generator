@@ -1,4 +1,3 @@
-jieba
 gTTS
 pinyin
 pycedict
