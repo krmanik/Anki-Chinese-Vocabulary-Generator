@@ -1,3 +1,10 @@
+v1.5
+- Sentences databases fully offline
+- Removed jieba python library
+- Traditional Sentences added
+- All json files merged into one all_cedict.json file
+- Meaning with multiple pinyin added
+
 V1.4
 - Create word list from text file
 Select ```Import``` from File menu. File should contain one word per line.
