@@ -40,14 +40,6 @@ Install latest version ```googletrans==4.0.0rc1```.
 
 5. Run ```main.py``` and start adding words
 
-## Download Standalone windows program from Patreon. No need to install anything. 
-Just download, extract, run and start creating word lists. <br>
-**Download Now** <br>
-https://www.patreon.com/kr_mani
-
-## Demo
-![](Images/demo_v1.4.gif)
-
 # To run on linux
 Download this repository and then follow the steps:
 1. Install python3 <br>[https://www.python.org](https://www.python.org/)
@@ -163,6 +155,3 @@ Code optimization will be appreciated.
 
 # License
 Read [License.md](/License.md)
-
-# Support this project on Patreon
-https://www.patreon.com/kr_mani
