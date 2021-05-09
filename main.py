@@ -399,8 +399,11 @@ class VocabGenerator(Tkinter.Frame):
 
         found = False 
         h = "audio_data/cmn-" + ch_sim + ".mp3"
+        g = "xiehanzi/cmn-" + ch_sim + ".mp3"
         if os.path.exists(h):
             shutil.copy(h, 'xiehanzi/')
+            found = True
+        elif os.path.exists(g):
             found = True
         else:
             print('Audio not found in data folder, fetching online')
@@ -559,6 +562,10 @@ class VocabGenerator(Tkinter.Frame):
                 ch_mean += self.cedict_json_data[ch_sim]["definitions"][d] + " "
             found = True
         except:
+            self.not_found = open("not_found.txt", "a", encoding="utf-8")
+            ln = ch_sim+"\n"
+            self.not_found.write(ln)
+            self.not_found.close()
             print("json not found in data folder, fetching online")
 
         if not found and len(ch_sim) > 0:
